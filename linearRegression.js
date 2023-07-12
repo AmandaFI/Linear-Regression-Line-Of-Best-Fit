@@ -2,9 +2,9 @@
 
 const width = 600;
 const height = 610;
-const regressionAreaXCoord = 10;
-const regressionAreaYCoord = 10;
-const regressionAreaWidth = 580;
+const regressionAreaXCoord = 0;
+const regressionAreaYCoord = 0;
+const regressionAreaWidth = 600;
 const regressionAreaHeight = 510;
 
 let pointsInsideCanvas = [];
@@ -43,10 +43,10 @@ mousePressed = () => {
 drawLine = () => {
 	let firstPointXCoord = regressionAreaXCoord + 1;
 	let firstPointYCoord = regressionAreaHeight - (slope * firstPointXCoord + yInterceptor);
-	let secondPointXCoord = regressionAreaHeight;
+	let secondPointXCoord = regressionAreaWidth;
 	let secondPointYCoord = regressionAreaHeight - (slope * secondPointXCoord + yInterceptor);
 
-	stroke(255, 255, 0);
+	stroke(0, 255, 0);
 	line(firstPointXCoord, firstPointYCoord, secondPointXCoord, secondPointYCoord);
 };
 
@@ -66,6 +66,20 @@ linearRegression = () => {
 	yInterceptor = yCoordMean - slope * xCoordsMean;
 };
 
+showCalculatedValues = () => {
+	const s = pointsInsideCanvas.length > 1 ? slope : "?";
+	const y = pointsInsideCanvas.length > 1 ? yInterceptor : "?";
+	textSize(15);
+	fill(0, 255, 0);
+	stroke(0, 255, 0);
+	text("Click 2 or more times on the area above to define a line.", 10, regressionAreaHeight + 20);
+	fill(255);
+	stroke(0, 0, 0);
+	text(`f(x): ${s}*x + ${y}`, 10, regressionAreaHeight + 50);
+	text(`Slope: ${s}`, 10, regressionAreaHeight + 70);
+	text(`y-Interceptor: ${y}`, 10, regressionAreaHeight + 90);
+};
+
 draw = () => {
 	background(51);
 	fill(100);
@@ -83,18 +97,9 @@ draw = () => {
 	if (pointsInsideCanvas.length > 1) {
 		linearRegression();
 		drawLine();
-		textSize(15);
-		fill(255);
-		stroke(200);
-		text(`f(x): ${slope}*x + ${yInterceptor}`, 10, regressionAreaHeight + 70);
-		text(`Slope: ${slope}`, 10, regressionAreaHeight + 30);
-		text(`y-Interceptor: ${yInterceptor}`, 10, regressionAreaHeight + 50);
-	} else {
-		textSize(15);
-		fill(255);
-		stroke(200);
-		text(`f(x): `, 10, regressionAreaHeight + 70);
-		text(`Slope: `, 10, regressionAreaHeight + 30);
-		text(`y-Interceptor: `, 10, regressionAreaHeight + 50);
 	}
+	stroke(0, 0, 0);
+	fill(23, 28, 38);
+	rect(0, regressionAreaHeight, regressionAreaWidth, height);
+	showCalculatedValues();
 };
