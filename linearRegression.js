@@ -7,14 +7,10 @@ const regressionAreaYCoord = 0;
 const regressionAreaWidth = 600;
 const regressionAreaHeight = 510;
 
-let pointsInsideCanvas = [];
-let data_real_x = [];
-let data_real_y = [];
-
 // y = slope*x + yInterceptor
 let slope = 1;
 let yInterceptor = 0;
-let cnv;
+let pointsInsideCanvas = [];
 
 setup = () => {
 	var canvas = createCanvas(width, height);
@@ -83,7 +79,7 @@ showCalculatedValues = () => {
 draw = () => {
 	background(51);
 	fill(100);
-
+	stroke(51);
 	rect(regressionAreaXCoord, regressionAreaYCoord, regressionAreaWidth, regressionAreaHeight);
 
 	pointsInsideCanvas.forEach((point) => {
